@@ -1,0 +1,41 @@
+<!-- 1. Herda a estrutura do base.html -->
+{% extends 'base.html' %}
+
+<!-- 2. Define o título principal da página (H2) -->
+{% block title %}Detalhes de {{ aluno.nome }}{% endblock %}
+
+<!-- 3. Define o conteúdo principal -->
+{% block content %}
+
+    <!-- Usamos classes de fonte do Bootstrap para destacar os detalhes -->
+    <div class="fs-5">
+        <p class="mb-3">
+            <strong class="fw-semibold text-dark">Nome Completo:</strong>
+            <!-- Mostra o campo 'nome' -->
+            <span>{{ aluno.nome }}</span>
+        </p>
+
+        <p class="mb-3">
+            <strong class="fw-semibold text-dark">Matrícula:</strong>
+            <!-- Mostra o campo 'matricula' -->
+            <span>{{ aluno.matricula }}</span>
+        </p>
+
+        <p class="mb-3">
+            <strong class="fw-semibold text-dark">Data de Cadastro:</strong>
+            <!-- Mostra a data e hora formatada -->
+            <span>{{ aluno.criado_em|date:"d/m/Y H:i" }}</span>
+        </p>
+    </div>
+
+    <!-- Links de Ação -->
+    <div class="mt-4 border-top pt-4 d-flex gap-2">
+        <a href="{% url 'editar_aluno' aluno.pk %}" class="btn btn-success">
+            Editar Aluno
+        </a>
+        <a href="{% url 'lista_alunos' %}" class="btn btn-secondary">
+            Voltar para a Lista
+        </a>
+    </div>
+
+{% endblock %}

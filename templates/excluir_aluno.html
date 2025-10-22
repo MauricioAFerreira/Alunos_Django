@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Exclusão{% endblock %}
+
+{% block content %}
+
+    <p class="fs-4 mb-4">
+        Você tem certeza que deseja excluir permanentemente o aluno
+
+        <strong class="fw-bold text-danger">{{ aluno.nome }}</strong>
+        ({{ aluno.email }})?
+    </p>
+
+    <p class="text-muted">Esta ação não pode ser desfeita.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-danger">
+                Sim, tenho certeza
+            </button>
+            <a href="{% url 'lista_alunos' %}" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </div>
+    </form>
+
+{% endblock %}

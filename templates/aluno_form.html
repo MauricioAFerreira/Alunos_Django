@@ -1,0 +1,41 @@
+<!-- 1. Herda a estrutura do base.html -->
+{% extends 'base.html' %}
+
+<!-- 2. Define o título principal da página (H2) -->
+{% block title %}
+    <!-- O título muda se estivermos a editar ou a criar -->
+    {% if aluno %}
+        <!-- Se o objeto 'aluno' existe, estamos a editar -->
+        Editar Aluno: {{ aluno.nome }}
+    {% else %}
+        <!-- Caso contrário, estamos a criar -->
+        Cadastrar Novo Aluno
+    {% endif %}
+{% endblock %}
+
+
+<!-- 3. Define o conteúdo principal (o formulário) -->
+{% block content %}
+
+    <!-- O formulário envia os dados (via POST) para a view que o chamou -->
+    <form method="POST">
+        <!-- Token de segurança OBRIGATÓRIO do Django -->
+        {% csrf_token %}
+
+        <!-- Renderiza os campos do formulário (nome, matricula) -->
+        <!-- O Django irá renderizá-los como <p><label>...</label><input ...></p> -->
+        <!-- O seu 'forms.py' deve adicionar a classe 'form-control' a estes campos -->
+        {{ form.as_p }}
+
+        <!-- Botões de ação -->
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary btn-lg px-4">
+                Salvar
+            </button>
+            <a href="{% url 'lista_alunos' %}" class="btn btn-secondary btn-lg px-4">
+                Cancelar
+            </a>
+        </div>
+    </form>
+
+{% endblock %}
